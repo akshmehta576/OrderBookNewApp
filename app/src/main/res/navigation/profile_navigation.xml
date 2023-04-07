@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/profile_navigation"
+    app:startDestination="@id/addBasicDetailsFragment">
+
+    <fragment
+        android:id="@+id/addBasicDetailsFragment"
+        android:name="com.example.orderbooknewapp.profile.AddBasicDetailsFragment"
+        android:label="fragment_add_basic_details"
+        tools:layout="@layout/fragment_add_basic_details" >
+        <action
+            android:id="@+id/action_addBasicDetailsFragment_to_addCompanyIconAndSignatureFragment"
+            app:destination="@id/addCompanyIconAndSignatureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCompanyIconAndSignatureFragment"
+        android:name="com.example.orderbooknewapp.profile.AddCompanyIconAndSignatureFragment"
+        android:label="fragment_add_company_icon_and_signature"
+        tools:layout="@layout/fragment_add_company_icon_and_signature" />
+</navigation>

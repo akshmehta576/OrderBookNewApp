@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".profile.AddBasicDetailsFragment">
+
+    <include
+        android:id="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/top_app_bar_without_back_btn"
+
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Company Name"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/company_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Company Name"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Your Name"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/your_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Your Name"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Address"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Your Name"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Email ID"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/emailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Your mail id"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Contact Number"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/contact_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Your contact number"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="number"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+    <ImageView
+        android:id="@+id/imageView70"
+        app:srcCompat="@drawable/ic_gradient_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/primary_round_bg_12"
+        android:backgroundTint="@color/gray"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="14dp"
+            android:fontFamily="@font/inter_bold"
+            android:text="Next"
+            android:textColor="#33000000"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

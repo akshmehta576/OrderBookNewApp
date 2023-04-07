@@ -11,30 +11,13 @@ import com.example.wardrobeapp.viewmodel.ViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var orderBookDatabase: OrderBookDatabase
-    lateinit var viewModel: ViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        )[ViewModel::class.java]
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        orderBookDatabase = OrderBookDatabase.getDatabase(this)
-        addData()
     }
 
-    private fun addData() {
-        viewModel.insertShirt(
-            SetUpProfileModel(
-                1,
-                "TATA",
-                "Aksh",
-                "13,Navlok",
-                "aksh@gmai;.com",
-                "+91798765432"
-            )
-        )
-    }
+
 }
