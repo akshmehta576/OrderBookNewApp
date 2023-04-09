@@ -1,6 +1,5 @@
 package com.example.orderbooknewapp.profile
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -10,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -55,10 +53,10 @@ class AddBasicDetailsFragment : Fragment() {
     }
 
     private fun updateData() {
-        viewModel.insertShirt(
+        viewModel.insertProfileData(
             SetUpProfileModel(
                 companyName = binding.companyName.text.toString(),
-                customerName = binding.yourName.text.toString(),
+                ownerName = binding.yourName.text.toString(),
                 address = binding.address.text.toString(),
                 contactNumber = binding.contactNumber.text.toString(),
                 emailId = binding.emailId.text.toString(),

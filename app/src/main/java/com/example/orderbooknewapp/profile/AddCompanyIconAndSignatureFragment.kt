@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import com.example.orderbooknewapp.MainActivity
 import com.example.orderbooknewapp.R
 import com.example.orderbooknewapp.databinding.FragmentAddCompanyIconAndSignatureBinding
+import com.example.orderbooknewapp.utils.SharedPreferenceManager
 
 
 class AddCompanyIconAndSignatureFragment : Fragment() {
@@ -27,6 +28,7 @@ class AddCompanyIconAndSignatureFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.topAppBar.textView.text = "Set up Profile"
         binding.submitBtn.setOnClickListener {
+            SharedPreferenceManager.shared.updateOnBoarding(requireContext(),true)
             val intent = Intent(requireContext(),MainActivity::class.java)
             startActivity(intent)
         }

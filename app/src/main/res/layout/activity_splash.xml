@@ -4,20 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SplashActivity"
+    android:background="@color/colorPrimary">
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/invoice_app_icon"
+        />
 
     <TextView
-        android:id="@+id/create_invoice_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Invoice"
-        android:paddingHorizontal="50dp"
-        android:paddingVertical="10dp"
-        android:textColor="@color/white"
         android:fontFamily="@font/inter_semibold"
-        android:background="@drawable/bg_create_invoice_btn"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        android:text="Order Book"
+        android:layout_marginBottom="54dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"/>
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>

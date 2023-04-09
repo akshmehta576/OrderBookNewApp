@@ -5,11 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.orderbooknewapp.dao.OrderBookDao
+import com.example.orderbooknewapp.model.Customer
 import com.example.orderbooknewapp.model.SetUpProfileModel
 
 @Database(
-    entities = [SetUpProfileModel::class],
-    version = 1, exportSchema = false
+    entities = [SetUpProfileModel::class, Customer::class],
+    version = 2, exportSchema = false
 )
 
 abstract class OrderBookDatabase : RoomDatabase() {
