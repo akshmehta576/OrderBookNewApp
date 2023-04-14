@@ -12,7 +12,7 @@
         android:theme="@style/Theme.OrderBookNewApp"
         tools:targetApi="31">
         <activity
-            android:name=".ListOfItemsActivity"
+            android:name=".createInvoice.ListOfItemsActivity"
             android:exported="false" />
         <activity
             android:name=".createInvoice.AddItemsActivity"

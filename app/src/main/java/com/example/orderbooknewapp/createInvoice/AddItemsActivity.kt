@@ -1,27 +1,23 @@
 package com.example.orderbooknewapp.createInvoice
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.updateLayoutParams
-import androidx.recyclerview.widget.RecyclerView
-import com.example.orderbooknewapp.R
 import com.example.orderbooknewapp.databinding.ActivityAddItemsBinding
+import com.example.orderbooknewapp.model.SingleItemModel
+import com.example.orderbooknewapp.model.Taxes
 import com.example.orderbooknewapp.utils.ConvertCurrency
 import com.example.orderbooknewapp.viewmodel.makeStatusBarTransparent
-import com.skydoves.balloon.ArrowOrientation
-import com.skydoves.balloon.Balloon
-import com.skydoves.balloon.BalloonSizeSpec
 
 
 class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.OnItemSelectedListener {
@@ -31,6 +27,8 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
     val sgstOptions = listOf(0.00,2.50,6.00,9.00,14.00)
     val cgstOptions = listOf(0.00,2.50,6.00,9.00,14.00)
     val igstOptions = listOf(0.00,5.00,12.00,18.00,28.00)
+    var totalItemPrice: Long= 0
+    var itemDetails: SingleItemModel? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,16 +36,30 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
         makeStatusBarTransparent()
         binding = ActivityAddItemsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        itemDetails = intent.getParcelableExtra<SingleItemModel>("update_item")
         binding.topAppBar.textView.text = "Add Item Details"
         binding.topAppBar.backButtonImageView.setOnClickListener {
             finish()
         }
         changeSubmitButtonColorState()
         setUpTextWatcher()
+        updateItem(itemDetails)
         binding.aggGstLabel.setOnClickListener {
+            binding.price.hideKeyboard()
+            binding.itemName.hideKeyboard()
+            binding.quantitySection.hideKeyboard()
+            binding.quantity.hideKeyboard()
             if(!addGst){
+                binding.aggGstLabel.text = "- REMOVE TAXES"
+                binding.aggGstLabel.setTextColor(Color.parseColor("#9F1414"))
                 binding.taxSection.visibility = View.VISIBLE
             }else{
+                binding.sgst.post(Runnable { binding.sgst.setSelection(0) })
+                binding.cgst.post(Runnable { binding.cgst.setSelection(0) })
+                binding.igst.post(Runnable { binding.igst.setSelection(0) })
+                calculateTotalPrice()
+                binding.aggGstLabel.text = "+ ADD GST & TAX DETAILS"
+                binding.aggGstLabel.setTextColor(Color.parseColor("#0077b6"))
                 binding.taxSection.visibility = View.GONE
             }
             addGst = !addGst
@@ -56,7 +68,22 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
         binding.submitBtn.setOnClickListener {
             if(validateData()){
                 changeSubmitButtonColorState()
-//                updateData()
+                val resultIntent = Intent()
+                val data  =  SingleItemModel(
+                    itemName = binding.itemName.text.toString(),
+                    description = binding.itemDescription.text.toString(),
+                    quantity = binding.quantity.text.toString(),
+                    price = binding.price.text.toString().toDouble(),
+                    totalPrice = totalItemPrice,
+                    taxes = Taxes(
+                        sgst = sgstOptions[binding.sgst.selectedItemPosition],
+                        cgst = cgstOptions[binding.cgst.selectedItemPosition],
+                        igst = igstOptions[binding.igst.selectedItemPosition],
+                    )
+                )
+                resultIntent.putExtra("item_detail", data)
+                setResult(RESULT_OK, resultIntent)
+                finish()
             }
         }
 
@@ -123,17 +150,9 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
             }
 
         }
-
-
-        // Create the instance of ArrayAdapter
-        // having the list of courses
-
-
-
-
-
-
     }
+
+
 
     fun setUpTextWatcher(){
         val textWatcher = object : TextWatcher {
@@ -158,9 +177,14 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
     private fun calculateTotalPrice() {
         if(!binding.price.text.isNullOrBlank() && !binding.quantity.text.isNullOrBlank() ){
             val totalPriceWithoutGst = binding.price.text.toString().toDouble() * binding.quantity.text.toString().toInt()
-            val totalTax = sgstOptions[binding.sgst.selectedItemPosition] + cgstOptions[binding.cgst.selectedItemPosition]+ igstOptions[binding.igst.selectedItemPosition]
-            val totalPrice = totalPriceWithoutGst + (totalPriceWithoutGst * totalTax/100)
-            binding.totalPrice.text = ConvertCurrency.toLocalCurrency(totalPrice.toLong())
+            var totalTax: Double = 0.0
+            totalTax = if(itemDetails == null){
+                sgstOptions[binding.sgst.selectedItemPosition] + cgstOptions[binding.cgst.selectedItemPosition]+ igstOptions[binding.igst.selectedItemPosition]
+            }else{
+                (itemDetails?.taxes?.sgst ?: 0.0) +  (itemDetails?.taxes?.cgst ?: 0.0) + ( itemDetails?.taxes?.igst ?: 0.0)
+            }
+            totalItemPrice = (totalPriceWithoutGst + (totalPriceWithoutGst * totalTax/100)).toLong()
+            binding.totalPrice.text = ConvertCurrency.toLocalCurrency(totalItemPrice)
         }
 
     }
@@ -208,7 +232,50 @@ class AddItemsActivity : AppCompatActivity(), SelectTaxInterface, AdapterView.On
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
+    private fun View.hideKeyboard() {
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
+    private fun updateItem(item: SingleItemModel?) {
+        if(item != null){
+            if(item.taxes?.sgst == 0.0 && item.taxes.cgst == 0.0 && item.taxes.igst == 0.0){
+                binding.aggGstLabel.text = "+ ADD GST & TAX DETAILS"
+                binding.aggGstLabel.setTextColor(Color.parseColor("#0077b6"))
+                binding.taxSection.visibility = View.GONE
+            }else{
+                binding.aggGstLabel.text = "- REMOVE TAXES"
+                binding.aggGstLabel.setTextColor(Color.parseColor("#9F1414"))
+                binding.taxSection.visibility = View.VISIBLE
+                sgstOptions.forEachIndexed { position, it ->
+                    if(it == item.taxes?.sgst){
+                        Log.i("taxes",sgstOptions[position].toString())
+
+                        binding.sgst.post(Runnable { binding.sgst.setSelection(position,true) })
+                    }
+                }
+                cgstOptions.forEachIndexed { position, it ->
+                    if(it == item.taxes?.cgst){
+                        Log.i("taxes",cgstOptions[position].toString())
+                        binding.cgst.post(Runnable { binding.cgst.setSelection(position,true) })
+                    }
+                }
+                igstOptions.forEachIndexed { position, it ->
+                    if(it == item.taxes?.igst){
+                        Log.i("taxes",igstOptions[position].toString())
+                        binding.igst.post(Runnable { binding.igst.setSelection(position,true) })
+                    }
+                }
+
+            }
+            binding.itemName.setText(item.itemName)
+            binding.quantity.setText(item.quantity)
+            binding.price.setText("${item.price}")
+            binding.itemDescription.setText(item.description)
+            binding.totalPrice.text = "${item?.totalPrice}"
+        }
+    }
 
 }
 

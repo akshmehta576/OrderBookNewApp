@@ -8,6 +8,8 @@ import android.view.View
 import com.example.orderbooknewapp.R
 import com.example.orderbooknewapp.databinding.ActivityCreateInvoiceBinding
 import com.example.orderbooknewapp.model.Customer
+import com.example.orderbooknewapp.model.SingleItemModel
+import com.example.orderbooknewapp.utils.ConvertCurrency
 import com.example.orderbooknewapp.viewmodel.getShortName
 import com.example.orderbooknewapp.viewmodel.makeStatusBarTransparent
 import com.google.gson.Gson
@@ -32,6 +34,10 @@ class CreateInvoiceActivity : AppCompatActivity(), SelectCustomerDetails {
 
     lateinit var binding: ActivityCreateInvoiceBinding
     var customerDetails: Customer? = null
+    lateinit var adapter: ShowAllItemsAdapter
+    var listOfItems: ArrayList<SingleItemModel> = arrayListOf()
+    var totalPrice: Long = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +48,9 @@ class CreateInvoiceActivity : AppCompatActivity(), SelectCustomerDetails {
         binding.topAppBar.backButtonImageView.setOnClickListener {
             finish()
         }
+        adapter = ShowAllItemsAdapter(listOfItems)
+        binding.addItemsSection.recyclerView.adapter = adapter
+
         binding.addCustomerSection.newCustomerPlaceholder.setOnClickListener {
             val dialog = AddCustomerBottomSheetFragment(this, customerDetails)
             dialog.show(supportFragmentManager, AddCustomerBottomSheetFragment.TAG)
@@ -53,8 +62,13 @@ class CreateInvoiceActivity : AppCompatActivity(), SelectCustomerDetails {
             }
         }
         binding.addItemsSection.newItemPlaceholder.setOnClickListener {
-            val intent = Intent(this, AddItemsActivity::class.java)
-            startActivity(intent)
+            val intent = Intent(this, ListOfItemsActivity::class.java)
+            startActivityForResult(intent,20)
+        }
+        binding.addItemsSection.allItemSectionRl.setOnClickListener {
+            val intent = Intent(this, ListOfItemsActivity::class.java)
+            intent.putExtra("all_items",listOfItems)
+            startActivityForResult(intent,20)
         }
 
     }
@@ -66,6 +80,27 @@ class CreateInvoiceActivity : AppCompatActivity(), SelectCustomerDetails {
         binding.addCustomerSection.customerName.text = customer.customerName
         binding.addCustomerSection.customerMobNo.text = customer.mobileNumber
         binding.addCustomerSection.shortNameCustomer.text = getShortName(customer.customerName)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 20  && resultCode  == RESULT_OK) {
+            val itemDetails= data?.getParcelableArrayListExtra<SingleItemModel>("all_items")
+            if (itemDetails != null) {
+                binding.totalTv.text = ConvertCurrency.toLocalCurrency(totalPrice)
+                listOfItems.clear()
+                listOfItems.addAll(itemDetails)
+                if(listOfItems.isNotEmpty()){
+                    binding.addItemsSection.newItemPlaceholder.visibility=View.GONE
+                    binding.addItemsSection.allItemSectionRl.visibility=View.VISIBLE
+                }else{
+                    binding.addItemsSection.newItemPlaceholder.visibility=View.VISIBLE
+                    binding.addItemsSection.allItemSectionRl.visibility=View.GONE
+                }
+                adapter.items = listOfItems
+                adapter.notifyDataSetChanged()
+            }
+        }
     }
 }
 

@@ -10,7 +10,8 @@ import com.example.orderbooknewapp.utils.ConvertCurrency
 import kotlin.math.roundToLong
 
 class AllSelectedItemsAdapter(
-    var items: List<SingleItemModel>
+    var items: java.util.ArrayList<SingleItemModel>,
+    val listener: SelectItemInterface
 ): RecyclerView.Adapter<AllSelectedItemsAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(val binding: SingleItemBinding) :
@@ -28,27 +29,34 @@ class AllSelectedItemsAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = items[position]
         holder.binding.itemName.text = item.itemName
-        holder.binding.price.text = ConvertCurrency.toLocalCurrency(item.totalPrice.roundToLong())
+        holder.binding.price.text = ConvertCurrency.toLocalCurrency(item.totalPrice)
         holder.binding.quantity.text = "${item.quantity} x ${ConvertCurrency.toLocalCurrency(item.price.roundToLong())}"
-        if(item.taxes != null){
+        holder.binding.parentLayout.setOnClickListener {
+            listener.updateItem(item)
+        }
+        holder.binding.delBtn.setOnClickListener {
+            items.remove(items[position])
+            notifyItemChanged(position)
+        }
+        if(item.taxes?.sgst != 0.0 || item.taxes.cgst != 0.0 || item.taxes.igst != 0.0){
             holder.binding.otherTaxesSection.visibility = View.VISIBLE
-            if(item.taxes.sgst != null){
+            if(item.taxes?.sgst != 0.0){
                 holder.binding.sgstSection.visibility = View.VISIBLE
-                holder.binding.sgst.text = "${item.taxes.sgst}"
+                holder.binding.sgst.text = "${item.taxes?.sgst}%"
             }else{
                 holder.binding.sgstSection.visibility = View.GONE
             }
 
-            if(item.taxes.cgst != null){
+            if(item.taxes?.cgst != 0.0){
                 holder.binding.cgstSection.visibility = View.VISIBLE
-                holder.binding.cgst.text = "${item.taxes.cgst}"
+                holder.binding.cgst.text = "${item.taxes?.cgst}%"
             }else{
                 holder.binding.cgstSection.visibility = View.GONE
             }
 
-            if(item.taxes.igst != null){
+            if(item.taxes?.igst != 0.0){
                 holder.binding.igstSection.visibility = View.VISIBLE
-                holder.binding.igst.text = "${item.taxes.igst}"
+                holder.binding.igst.text = "${item.taxes?.igst}%"
             }else{
                 holder.binding.igstSection.visibility = View.GONE
             }

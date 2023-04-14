@@ -9,7 +9,7 @@ data class SingleItemModel(
     val quantity: String,
     val description: String?,
     val price: Double,
-    val totalPrice: Double,
+    val totalPrice: Long,
     val taxes: Taxes? = null
 ): Parcelable
 
