@@ -12,8 +12,14 @@
         android:theme="@style/Theme.OrderBookNewApp"
         tools:targetApi="31">
         <activity
+            android:name=".ListOfItemsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".createInvoice.AddItemsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,9 +34,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
     </application>
 
 </manifest>

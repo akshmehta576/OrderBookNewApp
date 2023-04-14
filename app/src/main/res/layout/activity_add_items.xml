@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".createInvoice.AddItemsActivity">
+
+    <include
+        android:id="@+id/top_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/top_app_bar"
+        />
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/top_app_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/item_name_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Item Name"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Item Name"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_description_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/item_name_section"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Item Description (Optional)"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/item_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Item Description"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quantity_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/item_description_section"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Quantity"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Item Quantity"
+                    android:inputType="number"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/price_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@id/quantity_section"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Item Price"
+                    android:textColor="#0F0B28"
+                    android:textSize="12sp" />
+
+                <EditText
+                    android:id="@+id/price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_gray_loan_12"
+                    android:fontFamily="@font/inter_semibold"
+                    android:hint="Enter Single Item Price"
+                    android:inputType="number"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="14dp"
+                    android:singleLine="true"
+                    android:textColor="#0F0B28"
+                    android:textColorHint="#C9C9CE"
+                    android:textCursorDrawable="@drawable/edittext_cursor_drawable"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="200dp"
+                android:layout_below="@id/price_section">
+
+                <TextView
+                    android:id="@+id/agg_gst_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ ADD GST &amp; TAX DETAILS"
+                    android:textSize="14sp"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/inter_bold"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/tax_section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@id/agg_gst_label">
+
+
+                    <LinearLayout
+                        android:id="@+id/sgst_cgst_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginHorizontal="20dp"
+                       >
+                        <LinearLayout
+                            android:id="@+id/sgst_section"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="24dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="SGST"
+                                android:textColor="#0F0B28"
+                                android:textSize="12sp" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_gray_loan_12"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/sgst"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:dropDownVerticalOffset="50dp"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/cgst_section"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="CGST"
+                                android:textColor="#0F0B28"
+                                android:textSize="12sp" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_gray_loan_12"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/cgst"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:dropDownVerticalOffset="50dp"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/igst_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/sgst_cgst_section"
+                        >
+                        <LinearLayout
+                            android:id="@+id/igst_section"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="24dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/inter_medium"
+                                android:text="IGST"
+                                android:textColor="#0F0B28"
+                                android:textSize="12sp" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg_gray_loan_12"
+                                android:layout_marginTop="10dp"
+                                android:orientation="horizontal">
+
+                                <Spinner
+                                    android:id="@+id/igst"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_gravity="center"
+                                    android:background="@android:color/transparent"
+                                    android:gravity="center"
+                                    android:dropDownVerticalOffset="50dp"
+                                    android:spinnerMode="dropdown" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginEnd="10dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
+
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="20dp"
+                            />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="4dp"
+        android:paddingTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/submit_btn"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@id/submit_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Amount"
+                android:textSize="16sp"
+                android:textColor="@color/title_color"
+                android:fontFamily="@font/inter_semibold"/>
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹0"
+                android:layout_alignParentEnd="true"
+                android:textSize="16sp"
+                android:textColor="@color/title_color"
+                android:fontFamily="@font/inter_bold"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/primary_round_bg_12"
+            android:backgroundTint="@color/gray"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="14dp"
+                android:fontFamily="@font/inter_bold"
+                android:text="Submit"
+                android:textColor="#33000000"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

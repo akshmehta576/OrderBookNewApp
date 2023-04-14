@@ -12,9 +12,6 @@ class Repository(private val orderBookDao: OrderBookDao) {
         orderBookDao.setUpProfile(orderBookModel)
     }
 
-    suspend fun insertCustomer(customer: Customer) {
-        orderBookDao.addCustomer(customer)
-    }
 
 //    suspend fun getCustomer(customerId: Int) {
 //        orderBookDao.getCustomer(customerId)

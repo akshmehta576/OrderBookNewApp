@@ -2,4 +2,10 @@
     <string name="app_name">OrderBookNewApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="sgst">
+        <item>2.50</item>
+        <item>5.00</item>
+
+    </string-array>
 </resources>

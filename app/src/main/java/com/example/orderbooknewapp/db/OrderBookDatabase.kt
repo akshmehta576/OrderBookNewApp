@@ -9,7 +9,7 @@ import com.example.orderbooknewapp.model.Customer
 import com.example.orderbooknewapp.model.SetUpProfileModel
 
 @Database(
-    entities = [SetUpProfileModel::class, Customer::class],
+    entities = [SetUpProfileModel::class],
     version = 2, exportSchema = false
 )
 

@@ -21,3 +21,17 @@ fun Activity.makeStatusBarTransparent() {
         }
     }
 }
+
+fun getShortName(name: String): String{
+    var shortName = ""
+    shortName = if (name.split(" ").size == 1) {
+        name.split(" ")[0][0].uppercase()
+    } else {
+        name.split(" ")[0][0].uppercase() + name.split(
+            " "
+        )[1][0].uppercase()
+    }
+    return shortName
+}
+
+

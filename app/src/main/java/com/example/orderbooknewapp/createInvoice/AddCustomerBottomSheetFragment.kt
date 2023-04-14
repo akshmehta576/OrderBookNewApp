@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,11 +15,10 @@ import com.example.orderbooknewapp.databinding.FragmentAddCustomerBottomSheetBin
 import com.example.orderbooknewapp.model.Customer
 import com.example.wardrobeapp.viewmodel.ViewModel
 
-class AddCustomerBottomSheetFragment : SuperBottomSheetFragment() {
+class AddCustomerBottomSheetFragment(val listener: SelectCustomerDetails,val customerDetails: Customer?) : SuperBottomSheetFragment() {
 
     lateinit var binding: FragmentAddCustomerBottomSheetBinding
     lateinit var viewModel: ViewModel
-
 
     companion object{
         const val TAG = "AddCustomerBottomSheetFragment"
@@ -44,12 +44,23 @@ class AddCustomerBottomSheetFragment : SuperBottomSheetFragment() {
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
         )[ViewModel::class.java]
+        binding.backBtn.setOnClickListener {
+            dialog?.dismiss()
+        }
+        updateData()
+
         setUpTextWatcher()
+        changeSubmitButtonColorState()
 
         binding.submitBtn.setOnClickListener {
             if(validateData()){
                 changeSubmitButtonColorState()
-                updateData()
+                listener.selectCustomer(
+                    Customer(
+                    customerName = binding.customerName.text.toString(),
+                    mobileNumber = binding.mobileNumber.text.toString()
+                )
+                )
                 dialog?.dismiss()
             }
         }
@@ -57,12 +68,10 @@ class AddCustomerBottomSheetFragment : SuperBottomSheetFragment() {
     }
 
     private fun updateData() {
-        viewModel.insertCustomerDetails(
-            Customer(
-                customerName = binding.customerName.text.toString(),
-                mobileNumber = binding.mobileNumber.text.toString(),
-            )
-        )
+        if(customerDetails != null){
+            binding.customerName.setText(customerDetails!!.customerName)
+            binding.mobileNumber.setText(customerDetails!!.mobileNumber)
+        }
     }
 
     fun setUpTextWatcher(){
@@ -102,4 +111,8 @@ class AddCustomerBottomSheetFragment : SuperBottomSheetFragment() {
         return !(binding.mobileNumber.text.isNullOrBlank() || binding.customerName.text.isNullOrBlank())
     }
 
+}
+
+interface SelectCustomerDetails{
+    fun selectCustomer(customer: Customer)
 }

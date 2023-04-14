@@ -1,10 +1,17 @@
 package com.example.orderbooknewapp.createInvoice
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import com.example.orderbooknewapp.R
 import com.example.orderbooknewapp.databinding.ActivityCreateInvoiceBinding
+import com.example.orderbooknewapp.model.Customer
+import com.example.orderbooknewapp.viewmodel.getShortName
 import com.example.orderbooknewapp.viewmodel.makeStatusBarTransparent
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 
 
 /**
@@ -21,9 +28,10 @@ import com.example.orderbooknewapp.viewmodel.makeStatusBarTransparent
  * 3. Discount - in rs / in %
  * 4. add footer note (optional)
  */
-class CreateInvoiceActivity : AppCompatActivity() {
+class CreateInvoiceActivity : AppCompatActivity(), SelectCustomerDetails {
 
     lateinit var binding: ActivityCreateInvoiceBinding
+    var customerDetails: Customer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +43,40 @@ class CreateInvoiceActivity : AppCompatActivity() {
             finish()
         }
         binding.addCustomerSection.newCustomerPlaceholder.setOnClickListener {
-            val dialog = AddCustomerBottomSheetFragment()
+            val dialog = AddCustomerBottomSheetFragment(this, customerDetails)
             dialog.show(supportFragmentManager, AddCustomerBottomSheetFragment.TAG)
+        }
+        binding.addCustomerSection.customerDetails.setOnClickListener {
+            if(customerDetails != null){
+                val dialog = AddCustomerBottomSheetFragment(this, customerDetails)
+                dialog.show(supportFragmentManager, AddCustomerBottomSheetFragment.TAG)
+            }
+        }
+        binding.addItemsSection.newItemPlaceholder.setOnClickListener {
+            val intent = Intent(this, AddItemsActivity::class.java)
+            startActivity(intent)
         }
 
     }
+
+    override fun selectCustomer(customer: Customer) {
+        customerDetails = customer
+        binding.addCustomerSection.customerDetails.visibility = View.VISIBLE
+        binding.addCustomerSection.newCustomerPlaceholder.visibility = View.GONE
+        binding.addCustomerSection.customerName.text = customer.customerName
+        binding.addCustomerSection.customerMobNo.text = customer.mobileNumber
+        binding.addCustomerSection.shortNameCustomer.text = getShortName(customer.customerName)
+    }
+}
+
+object Utils {
+    private var gson: Gson? = null
+    val gsonParser: Gson?
+        get() {
+            if (null == gson) {
+                val builder = GsonBuilder()
+                gson = builder.create()
+            }
+            return gson
+        }
 }

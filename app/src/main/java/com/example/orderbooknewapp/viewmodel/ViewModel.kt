@@ -21,7 +21,6 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     fun insertProfileData(orderBookModel: SetUpProfileModel) = viewModelScope.launch { repository.insertProfile(orderBookModel) }
 
-    fun insertCustomerDetails(customer: Customer) = viewModelScope.launch { repository.insertCustomer(customer) }
 
 
 }

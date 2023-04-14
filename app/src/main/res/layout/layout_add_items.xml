@@ -75,7 +75,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/new_customer_placeholder"
+        android:id="@+id/new_item_placeholder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/border_grey_white_bg_15"
